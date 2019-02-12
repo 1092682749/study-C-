@@ -7,12 +7,24 @@ using namespace std;
 
 #define DEFAULT_PORT "9090"
 #define DEFAULT_BUFLEN 512
-char recvbuf[DEFAULT_BUFLEN];
-int iResult, iSendResult;
-int recvbuflen = DEFAULT_BUFLEN;
-struct addrinfo *result = NULL, *ptr = NULL, hints;
+
+int trim(string &s)
+{
+	if (s.empty())
+	{
+		return 0;
+	}
+
+	s.erase(0, s.find_first_not_of(" "));
+	s.erase(s.find_last_not_of(" ") + 1);
+	return 0;
+}
 int main()
 {
+	char recvbuf[DEFAULT_BUFLEN];
+	int iResult, iSendResult;
+	int recvbuflen = DEFAULT_BUFLEN;
+	struct addrinfo *result = NULL, *ptr = NULL, hints;
 	// WSAData结构体包含了windows sockets的实现，
 	WSAData wsaData;
 	int ret;
@@ -83,6 +95,7 @@ int main()
 		if (iResult > 0)
 		{
 			cout << "Bytes received: " << iResult << endl;
+			cout << "data is:" << trim(recvbuf) << endl;
 			iSendResult = send(clientSocket, recvbuf, iResult, 0);
 			if (iSendResult == SOCKET_ERROR)
 			{
