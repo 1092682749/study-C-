@@ -21,5 +21,8 @@
     <ClCompile Include="Client.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="WSATest.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

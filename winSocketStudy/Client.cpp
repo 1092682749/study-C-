@@ -25,10 +25,10 @@ int main_(int argc, char **argv)
 		return -1;
 	}
 	ZeroMemory(&hints, sizeof(hints));
-	hints.ai_family = AF_INET;
+	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
-	
+
 	ret = getaddrinfo(argv[1], DEFAULT_PORT, &hints, &result);
 	if (ret != 0)
 	{
@@ -56,7 +56,7 @@ int main_(int argc, char **argv)
 	}
 	cout << "connection success!" << endl;
 	ret = send(connectionSocket, sendbuf, (int)strlen(sendbuf), 0);
-	if (ret != SOCKET_ERROR)
+	if (ret == SOCKET_ERROR)
 	{
 		cout << "send failed" << endl;
 		closesocket(connectionSocket);
@@ -77,7 +77,8 @@ int main_(int argc, char **argv)
 		ret = recv(connectionSocket, recvbuf, recvbuflen, 0);
 		if (ret > 0)
 		{
-			cout << "Bytes received" << ret << endl;
+			cout << "Bytes received  : " << ret << endl;
+			cout << "data is: " << recvbuf << endl;
 		}
 		else if (ret == 0)
 		{

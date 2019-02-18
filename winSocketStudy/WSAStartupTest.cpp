@@ -8,18 +8,8 @@ using namespace std;
 #define DEFAULT_PORT "9090"
 #define DEFAULT_BUFLEN 512
 
-int trim(string &s)
-{
-	if (s.empty())
-	{
-		return 0;
-	}
-
-	s.erase(0, s.find_first_not_of(" "));
-	s.erase(s.find_last_not_of(" ") + 1);
-	return 0;
-}
-int main()
+// 2
+int main_2()
 {
 	char recvbuf[DEFAULT_BUFLEN];
 	int iResult, iSendResult;
@@ -95,7 +85,7 @@ int main()
 		if (iResult > 0)
 		{
 			cout << "Bytes received: " << iResult << endl;
-			cout << "data is:" << trim(recvbuf) << endl;
+			cout << "data is:" << recvbuf << endl;
 			iSendResult = send(clientSocket, recvbuf, iResult, 0);
 			if (iSendResult == SOCKET_ERROR)
 			{
